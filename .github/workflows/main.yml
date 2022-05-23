@@ -41,7 +41,7 @@ jobs:
         env:
           SLACK_WEBHOOK: ${{ secrets.SLACK_AT_NOTIFICATIONS }}
           SLACK_USERNAME: cypress-e2e-tests
-          SLACK_CUSTOM_PAYLOAD: '{"text":"Custom payload from {{ EVENT_PAYLOAD.github.event.after }}}'
+          SLACK_CUSTOM_PAYLOAD: '{"text":"Custom payload from {{ EVENT_PAYLOAD.repository.id }}}'
         uses: Ilshidur/action-slack@2.1.0
         with:
           args: >
