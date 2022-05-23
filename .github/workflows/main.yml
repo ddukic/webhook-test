@@ -41,7 +41,15 @@ jobs:
         env:
           SLACK_WEBHOOK: ${{ secrets.SLACK_AT_NOTIFICATIONS }}
           SLACK_USERNAME: cypress-e2e-tests
-          SLACK_CUSTOM_PAYLOAD: '{"text":"Custom payload from {{ GITHUB_REPOSITORY }} \\n *with* `new` _line_ escaped","username": "{{ GITHUB_ACTOR }}"}'
+          SLACK_CUSTOM_PAYLOAD: |
+          {
+              "attachments": [{
+                "fallback": "Error while creating workflow Slack report.",
+                "pretext": "${{ job.status }}" === "failure" ? ":x: Workflow failed:" : ":warning: Workflow cancelled:",
+                "color": "${{ job.status }}" === "failure" ? "danger" : "warning",
+                "text": `${process.env.AS_WORKFLOW} ${{ job.status }} (${process.env.AS_COMMIT}), took ${process.env.AS_TOOK} \n <${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID}#artifacts|*View artifacts*>`
+              }]
+          }
         uses: Ilshidur/action-slack@2.1.0
         with:
           args: >
