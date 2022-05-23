@@ -41,7 +41,6 @@ jobs:
         env:
           SLACK_WEBHOOK: ${{ secrets.SLACK_AT_NOTIFICATIONS }}
           SLACK_USERNAME: cypress-e2e-tests
-          SLACK_CHANNEL: Dane Dukic
         uses: Ilshidur/action-slack@2.1.0
         with:
           args: >
