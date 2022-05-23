@@ -49,7 +49,7 @@ jobs:
                 "color": "${{ job.status }}" === "failure" ? "danger" : "warning",
                 "text": `${process.env.AS_WORKFLOW} ${{ job.status }} (${process.env.AS_COMMIT}), took ${process.env.AS_TOOK} \n <${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID}#artifacts|*View artifacts*>`
               }]
-          }''
+          }'
         uses: Ilshidur/action-slack@2.1.0
         with:
           args: >
