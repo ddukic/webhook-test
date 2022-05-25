@@ -57,9 +57,9 @@ jobs:
           SLACK_USERNAME: cypress-e2e-tests
         uses: Ilshidur/action-slack@2.1.0
         with:
-          args: >
-            :green-circle: *Test passed* \n
-            Tests run: *${{fromJson(steps.set_var.outputs.results).totalTests}}* \n
-            Tests passed: *${{fromJson(steps.set_var.outputs.results).totalPassed}}* \n
-            Tests failed: *${{fromJson(steps.set_var.outputs.results).totalFailed}}* \n
+          args: |
+            :green-circle: *Test passed*
+            Tests run: *${{fromJson(steps.set_var.outputs.results).totalTests}}*
+            Tests passed: *${{fromJson(steps.set_var.outputs.results).totalPassed}}*
+            Tests failed: *${{fromJson(steps.set_var.outputs.results).totalFailed}}*
             Skipped tests: *${{fromJson(steps.set_var.outputs.results).totalPending}}*
