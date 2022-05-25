@@ -30,7 +30,7 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
-        run: node test run --browser chrome
+        run: node cypress run --browser chrome
 
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
@@ -38,7 +38,7 @@ jobs:
           echo Add other actions to build,
           echo test, and deploy your project.
 
-      # Read json
+      # Read results.json
       - id: set_var
         run: |
           content=`cat results.json`
@@ -55,8 +55,10 @@ jobs:
         env:
           SLACK_WEBHOOK: ${{ secrets.SLACK_AT_NOTIFICATIONS }}
           SLACK_USERNAME: cypress-e2e-tests
-          SLACK_CUSTOM_PAYLOAD: '{"text": ${{fromJson(steps.set_var.outputs.results).totalPassed}}}'
         uses: Ilshidur/action-slack@2.1.0
         with:
           args: >
             :green-circle: *Test passed:*
+            Tests run: ${{fromJson(steps.set_var.outputs.results).totalTests}}
+            Tests passed: ${{fromJson(steps.set_var.outputs.results).totalPassed}}
+            Tests failed: ${{fromJson(steps.set_var.outputs.results).totalFailed}}
