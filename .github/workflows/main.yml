@@ -58,8 +58,8 @@ jobs:
         uses: Ilshidur/action-slack@2.1.0
         with:
           args: >
-            :green-circle: *Test passed*\\n
-            Tests run: *${{fromJson(steps.set_var.outputs.results).totalTests}}*\\n
-            Tests passed: *${{fromJson(steps.set_var.outputs.results).totalPassed}}*\\n
-            Tests failed: *${{fromJson(steps.set_var.outputs.results).totalFailed}}*\\n
+            :green-circle: *Test passed* \n
+            Tests run: *${{fromJson(steps.set_var.outputs.results).totalTests}}* \n
+            Tests passed: *${{fromJson(steps.set_var.outputs.results).totalPassed}}* \n
+            Tests failed: *${{fromJson(steps.set_var.outputs.results).totalFailed}}* \n
             Skipped tests: *${{fromJson(steps.set_var.outputs.results).totalPending}}*
