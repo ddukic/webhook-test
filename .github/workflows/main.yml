@@ -35,13 +35,24 @@ jobs:
           echo Add other actions to build,
           echo test, and deploy your project.
 
+      # Read json
+      - id: set_var
+        run: |
+          content=`cat results.json`
+          # the following lines are only required for multi line json
+          content="${content//'%'/'%25'}"
+          content="${content//$'\n'/'%0A'}"
+          content="${content//$'\r'/'%0D'}"
+          # end of optional handling for multi line json
+          echo "::set-output name=results::$content"
+
       # Slack integration
       - name: Slack notification success
         if: success()
         env:
           SLACK_WEBHOOK: ${{ secrets.SLACK_AT_NOTIFICATIONS }}
           SLACK_USERNAME: cypress-e2e-tests
-          SLACK_CUSTOM_PAYLOAD: '{"text":"Custom payload from {{ EVENT_PAYLOAD.repository.owner.avatar_url }}"}'
+          SLACK_CUSTOM_PAYLOAD: '{"text": ${{fromJson(steps.set_var.outputs.results).totalPassed}}}'
         uses: Ilshidur/action-slack@2.1.0
         with:
           args: >
