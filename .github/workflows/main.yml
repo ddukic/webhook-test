@@ -51,8 +51,8 @@ jobs:
           
       - uses: actions/upload-artifact@v3
         with:
-        name: screenshots
-        path: cypress/screenshots # or path/to/artifact
+          name: screenshots
+          path: cypress/screenshots # or path/to/artifact
 
       # Slack integration
       # - name: Slack notification success
