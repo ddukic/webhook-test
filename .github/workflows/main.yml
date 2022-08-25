@@ -48,6 +48,11 @@ jobs:
           content="${content//$'\r'/'%0D'}"
           # end of optional handling for multi line json
           echo "::set-output name=results::$content"
+          
+      - uses: actions/upload-artifact@v3
+        with:
+        name: screenshots
+        path: cypress/screenshots # or path/to/artifact
 
       # Slack integration
       # - name: Slack notification success
