@@ -57,7 +57,7 @@ jobs:
 
       - name: Log me
         run: |
-          echo toJSON(job)
+          echo ${{toJSON(job)}}
 
       # Slack integration
       - name: Slack notification success
