@@ -9,10 +9,10 @@ describe("Random tests", () => {
   });
   it("First test", () => {
     cy.log("Im running");
-    // if (i === 2) {
-    //   cy.log("run #2");
-    // } else {
-    //   cy.get("I dont exist");
-    // }
+    if (i === 2) {
+      cy.log("run #2");
+    } else {
+      cy.get("I dont exist");
+    }
   });
 });
