@@ -55,7 +55,7 @@ jobs:
           path: cypress/screenshots
           if-no-files-found: ignore
 
-      Slack integration
+      # Slack integration
       - name: Slack notification success
         if: success()
         env:
