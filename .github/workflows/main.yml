@@ -38,16 +38,16 @@ jobs:
       #     echo Add other actions to build,
       #     echo test, and deploy your project.
 
-      # Read results.json
-      - id: set_var
-        run: |
-          content=`cat results.json`
-          # the following lines are only required for multi line json
-          content="${content//'%'/'%25'}"
-          content="${content//$'\n'/'%0A'}"
-          content="${content//$'\r'/'%0D'}"
-          # end of optional handling for multi line json
-          echo "::set-output name=results::$content"
+      # # Read results.json
+      # - id: set_var
+      #   run: |
+      #     content=`cat results.json`
+      #     # the following lines are only required for multi line json
+      #     content="${content//'%'/'%25'}"
+      #     content="${content//$'\n'/'%0A'}"
+      #     content="${content//$'\r'/'%0D'}"
+      #     # end of optional handling for multi line json
+      #     echo "::set-output name=results::$content"
           
       - uses: actions/upload-artifact@v3
         with:
