@@ -55,6 +55,10 @@ jobs:
           path: cypress/screenshots
           if-no-files-found: ignore
 
+      - name: Log me
+        run: |
+          echo ${{ job }}
+
       # Slack integration
       - name: Slack notification success
         if: success()
@@ -69,4 +73,3 @@ jobs:
             - Tests passed: *${{fromJson(steps.set_var.outputs.results).totalPassed}}*
             - Tests failed: *${{fromJson(steps.set_var.outputs.results).totalFailed}}*
             - Skipped tests: *${{fromJson(steps.set_var.outputs.results).totalPending}}*
-            - Results: *${{fromJson(steps.set_var.outputs.results)}}*
