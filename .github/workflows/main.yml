@@ -56,7 +56,7 @@ jobs:
           if-no-files-found: ignore
 
       - name: Log me
-        run: echo ${{toJSON(github)}}
+        run: echo "${{toJSON(github)}}"
 
       # Slack integration
       - name: Slack notification success
