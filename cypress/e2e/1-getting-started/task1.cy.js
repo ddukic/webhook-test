@@ -15,4 +15,7 @@ describe("Random tests", () => {
       cy.get("I dont exist");
     }
   });
+  it("Failing test", () => {
+    cy.get("I fail");
+  }
 });
