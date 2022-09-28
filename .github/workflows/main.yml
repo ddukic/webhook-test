@@ -51,7 +51,8 @@ jobs:
           # end of optional handling for multi line json
           echo "::set-output name=results::$content"
           
-      - uses: actions/upload-artifact@v3
+      - name: Upload screenshots
+        uses: actions/upload-artifact@v3
         with:
           name: screenshots
           path: cypress/screenshots
