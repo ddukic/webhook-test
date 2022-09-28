@@ -17,5 +17,5 @@ describe("Random tests", () => {
   });
   it("Failing test", () => {
     cy.get("I fail");
-  }
+  });
 });
