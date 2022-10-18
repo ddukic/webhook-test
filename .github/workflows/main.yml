@@ -51,15 +51,11 @@ jobs:
           echo test, and deploy your project.
 
       # Read results.json
-      - id: set_var
-        run: |
-          echo 'JSON_RESPONSE<<EOF' >> $GITHUB_ENV
-          cat results.json >> $GITHUB_ENV
-          echo 'EOF' >> $GITHUB_ENV
-      - name: Use the value
-        id: step_two
-        run: |
-          echo "${{ env.JSON_RESPONSE }}"
+      - name: JSON to variables
+        uses: rgarcia-phi/json-to-variables@v1.1.0
+        with:
+          filename: 'results.json'
+          prefix: test
           
       - name: Upload screenshots
         uses: actions/upload-artifact@v3
@@ -83,7 +79,7 @@ jobs:
           fields: repo,commit,job,took
           text: |
             :green-circle: *Test passed:*
-            - Tests run: *${{fromJson(env.JSON_RESPONSE).totalTests}}*
-            - Tests passed: *${{fromJson(env.JSON_RESPONSE).totalPassed}}*
-            - Tests failed: *${{fromJson(env.JSON_RESPONSE).totalFailed}}*
-            - Skipped tests: *${{fromJson(env.JSON_RESPONSE).totalPending}}*
+            - Tests run: *${{fromJson(env.test_totalTests}}*
+            - Tests passed: *${{fromJson(env.test_totalPassed}}*
+            - Tests failed: *${{fromJson(env.test_totalFailed}}*
+            - Skipped tests: *${{fromJson(env.test_totalPending}}*
