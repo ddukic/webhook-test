@@ -31,33 +31,28 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      # - uses: actions/checkout@v3
-      # - uses: actions/setup-node@v3
-      #   with:
-      #     node-version: 16
-      # - run: npm install
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - run: npm install
 
-      # # Runs a single command using the runners shell
-      # - name: Run a one-line script
-      #   # if: github.event.inputs.e2e_tests == 'Run all'
-      #   run: node cypress run --browser chrome
+      # Runs a single command using the runners shell
+      - name: Run a one-line script
+        # if: github.event.inputs.e2e_tests == 'Run all'
+        run: node cypress run --browser chrome
 
-      # # Runs a set of commands using the runners shell
-      # - name: Run a multi-line script
-      #   if: github.event.inputs.e2e_tests == 'Run single test'
-      #   run: |
-      #     echo Add other actions to build,
-      #     echo test, and deploy your project.
+      # Runs a set of commands using the runners shell
+      - name: Run a multi-line script
+        if: github.event.inputs.e2e_tests == 'Run single test'
+        run: |
+          echo Add other actions to build,
+          echo test, and deploy your project.
 
       # Read results.json
       - id: set_var
         run: |
-          echo "{
-                "exportId":"c68fe09c-8428-4b84-9c97-cc8418a3b61e",
-                "status":"completed",
-                "fileLocation":"https://storage.googleapis.com/des-artefacts-stage/c68fe09c-8428-4b84-9c97-cc8418a3b61e.pdf"
-                }" >> results.json
           echo 'JSON_RESPONSE<<EOF' >> $GITHUB_ENV
           cat results.json >> $GITHUB_ENV
           echo 'EOF' >> $GITHUB_ENV
@@ -88,7 +83,7 @@ jobs:
           fields: repo,commit,job,took
           text: |
             :green-circle: *Test passed:*
-            - Tests run: *${{fromJson(steps.set_var.outputs.results).totalTests}}*
-            - Tests passed: *${{fromJson(steps.set_var.outputs.results).totalPassed}}*
-            - Tests failed: *${{fromJson(steps.set_var.outputs.results).totalFailed}}*
-            - Skipped tests: *${{fromJson(steps.set_var.outputs.results).totalPending}}*
+            - Tests run: *${{fromJson(env.JSON_RESPONSE).totalTests}}*
+            - Tests passed: *${{fromJson(env.JSON_RESPONSE).totalPassed}}*
+            - Tests failed: *${{fromJson(env.JSON_RESPONSE).totalFailed}}*
+            - Skipped tests: *${{fromJson(env.JSON_RESPONSE).totalPending}}*
