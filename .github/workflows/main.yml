@@ -79,7 +79,7 @@ jobs:
           fields: repo,commit,job,took
           text: |
             :green-circle: *Test passed:*
-            - Tests run: *${{fromJson(env.test_totalTests}}*
-            - Tests passed: *${{fromJson(env.test_totalPassed}}*
-            - Tests failed: *${{fromJson(env.test_totalFailed}}*
-            - Skipped tests: *${{fromJson(env.test_totalPending}}*
+            - Tests run: *${{fromJson(env.test_totalTests)}}*
+            - Tests passed: *${{fromJson(env.test_totalPassed)}}*
+            - Tests failed: *${{fromJson(env.test_totalFailed)}}*
+            - Skipped tests: *${{fromJson(env.test_totalPending)}}*
