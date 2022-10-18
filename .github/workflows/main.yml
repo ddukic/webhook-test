@@ -53,13 +53,10 @@ jobs:
       # Read results.json
       - id: set_var
         run: |
-          content=`cat results.json`
-          # the following lines are only required for multi line json
-          content="${content//'%'/'%25'}"
-          content="${content//$'\n'/'%0A'}"
-          content="${content//$'\r'/'%0D'}"
+          echo 'JSON_RESPONSE<<EOF' >> $GITHUB_ENV
+          cat results.json >> $GITHUB_ENV
+          echo 'EOF' >> $GITHUB_ENV
           # end of optional handling for multi line json
-          echo "name=results::$content" >> $GITHUB_ENV
           echo "${{ env.name }}"
           
       - name: Upload screenshots
