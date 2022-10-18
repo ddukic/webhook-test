@@ -40,7 +40,7 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
-        if: github.event.inputs.e2e_tests == 'Run all'
+        # if: github.event.inputs.e2e_tests == 'Run all'
         run: node cypress run --browser chrome
 
       # Runs a set of commands using the runners shell
