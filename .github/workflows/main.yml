@@ -79,6 +79,7 @@ jobs:
           SLACK_USERNAME: cypress-e2e-tests
         uses: 8398a7/action-slack@v3
         with:
+          status: ${{ job.status }}
           text: |
             :green-circle: *Test passed:* <https://github.com/ddukic/webhook-test/actions/runs/{{ GITHUB_RUN_ID }}| ${{ github.job }}>
             - Tests run: *${{fromJson(steps.set_var.outputs.results).totalTests}}*
