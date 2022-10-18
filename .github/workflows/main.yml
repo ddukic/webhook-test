@@ -72,16 +72,16 @@ jobs:
         run: echo "${{toJSON(github)}}"
 
       # Slack integration
-      # - name: Slack notification success
-      #   if: success()
-      #   env:
-      #     SLACK_WEBHOOK: ${{ secrets.SLACK_AT_NOTIFICATIONS }}
-      #     SLACK_USERNAME: cypress-e2e-tests
-      #   uses: Ilshidur/action-slack@2.1.0
-      #   with:
-      #     args: |
-      #       :green-circle: *Test passed:* <https://github.com/ddukic/webhook-test/actions/runs/{{ GITHUB_RUN_ID }}| ${{ github.job }}>
-      #       - Tests run: *${{fromJson(steps.set_var.outputs.results).totalTests}}*
-      #       - Tests passed: *${{fromJson(steps.set_var.outputs.results).totalPassed}}*
-      #       - Tests failed: *${{fromJson(steps.set_var.outputs.results).totalFailed}}*
-      #       - Skipped tests: *${{fromJson(steps.set_var.outputs.results).totalPending}}*
+      - name: Slack notification success
+        if: success()
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_AT_NOTIFICATIONS }}
+          SLACK_USERNAME: cypress-e2e-tests
+        uses: 8398a7/action-slack@v3
+        with:
+          text: |
+            :green-circle: *Test passed:* <https://github.com/ddukic/webhook-test/actions/runs/{{ GITHUB_RUN_ID }}| ${{ github.job }}>
+            - Tests run: *${{fromJson(steps.set_var.outputs.results).totalTests}}*
+            - Tests passed: *${{fromJson(steps.set_var.outputs.results).totalPassed}}*
+            - Tests failed: *${{fromJson(steps.set_var.outputs.results).totalFailed}}*
+            - Skipped tests: *${{fromJson(steps.set_var.outputs.results).totalPending}}*
