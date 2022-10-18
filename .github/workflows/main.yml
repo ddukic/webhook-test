@@ -75,7 +75,7 @@ jobs:
       - name: Slack notification success
         if: success()
         env:
-          SLACK_WEBHOOK: ${{ secrets.SLACK_AT_NOTIFICATIONS }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_AT_NOTIFICATIONS }}
           SLACK_USERNAME: cypress-e2e-tests
         uses: 8398a7/action-slack@v3
         with:
