@@ -53,7 +53,11 @@ jobs:
       # Read results.json
       - id: set_var
         run: |
-          echo "something" >> results.json
+          echo "{
+                "exportId":"c68fe09c-8428-4b84-9c97-cc8418a3b61e",
+                "status":"completed",
+                "fileLocation":"https://storage.googleapis.com/des-artefacts-stage/c68fe09c-8428-4b84-9c97-cc8418a3b61e.pdf"
+                }" >> results.json
           echo 'JSON_RESPONSE<<EOF' >> $GITHUB_ENV
           cat results.json >> $GITHUB_ENV
           echo 'EOF' >> $GITHUB_ENV
