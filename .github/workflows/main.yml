@@ -79,11 +79,11 @@ jobs:
           SLACK_USERNAME: cypress-e2e-tests
         uses: 8398a7/action-slack@v3
         with:
+          status: ${{ job.status }}
+          fields: repo,commit,job,took
           text: |
             :green-circle: *Test passed:*
             - Tests run: *${{fromJson(steps.set_var.outputs.results).totalTests}}*
             - Tests passed: *${{fromJson(steps.set_var.outputs.results).totalPassed}}*
             - Tests failed: *${{fromJson(steps.set_var.outputs.results).totalFailed}}*
             - Skipped tests: *${{fromJson(steps.set_var.outputs.results).totalPending}}*
-          status: ${{ job.status }}
-          fields: repo,message,commit,author,action,eventName,ref,workflow,job,took,pullRequest
