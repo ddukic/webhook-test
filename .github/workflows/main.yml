@@ -1,91 +1,91 @@
-# This is a basic workflow to help you get started with Actions
+# # This is a basic workflow to help you get started with Actions
 
-name: CI
+# name: CI
 
-# Controls when the workflow will run
-on:
-  # Triggers the workflow on push or pull request events but only for the master branch
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+# # Controls when the workflow will run
+# on:
+#   # Triggers the workflow on push or pull request events but only for the master branch
+#   push:
+#     branches: [ master ]
+#   pull_request:
+#     branches: [ master ]
 
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
-    inputs:
-      e2e_tests:
-        description: "Run all e2e Cypress tests"
-        type: choice
-        required: true
-        default: "Run all"
-        options:
-          - "Run all"
-          - "Run single test"
+#   # Allows you to run this workflow manually from the Actions tab
+#   workflow_dispatch:
+#     inputs:
+#       e2e_tests:
+#         description: "Run all e2e Cypress tests"
+#         type: choice
+#         required: true
+#         default: "Run all"
+#         options:
+#           - "Run all"
+#           - "Run single test"
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
-jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+# # A workflow run is made up of one or more jobs that can run sequentially or in parallel
+# jobs:
+#   # This workflow contains a single job called "build"
+#   build:
+#     # The type of runner that the job will run on
+#     runs-on: ubuntu-latest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
-      - run: npm install
+#     # Steps represent a sequence of tasks that will be executed as part of the job
+#     steps:
+#       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+#       - uses: actions/checkout@v3
+#       - uses: actions/setup-node@v3
+#         with:
+#           node-version: 16
+#       - run: npm install
 
-      - name: Read .nvmrc
-        run: echo "nvm=$(cat .nvmrc)" >> $GITHUB_ENV
+#       - name: Read .nvmrc
+#         run: echo "nvm=$(cat .nvmrc)" >> $GITHUB_ENV
 
-      - name: Print .nvmrc
-        run: echo "Node version " '${{ env.nvm}}'
+#       - name: Print .nvmrc
+#         run: echo "Node version " '${{ env.nvm}}'
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        # if: github.event.inputs.e2e_tests == 'Run all'
-        run: node cypress run --browser chrome
+#       # Runs a single command using the runners shell
+#       - name: Run a one-line script
+#         # if: github.event.inputs.e2e_tests == 'Run all'
+#         run: node cypress run --browser chrome
 
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        if: github.event.inputs.e2e_tests == 'Run single test'
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+#       # Runs a set of commands using the runners shell
+#       - name: Run a multi-line script
+#         if: github.event.inputs.e2e_tests == 'Run single test'
+#         run: |
+#           echo Add other actions to build,
+#           echo test, and deploy your project.
 
-      # Read results.json
-      - name: JSON to variables
-        uses: ddukic/json-to-variables@v1.1.0
-        with:
-          filename: 'results.json'
-          prefix: test
+#       # Read results.json
+#       - name: JSON to variables
+#         uses: ddukic/json-to-variables@v1.1.0
+#         with:
+#           filename: 'results.json'
+#           prefix: test
           
-      - name: Upload screenshots
-        uses: actions/upload-artifact@v3
-        with:
-          name: screenshots
-          path: cypress/screenshots
-          if-no-files-found: ignore
+#       - name: Upload screenshots
+#         uses: actions/upload-artifact@v3
+#         with:
+#           name: screenshots
+#           path: cypress/screenshots
+#           if-no-files-found: ignore
 
-      - name: Log me
-        run: echo "${{toJSON(github)}}"
+#       - name: Log me
+#         run: echo "${{toJSON(github)}}"
 
-      # Slack integration
-      - name: Slack notification success
-        if: success()
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_AT_NOTIFICATIONS }}
-          SLACK_USERNAME: cypress-e2e-tests
-        uses: 8398a7/action-slack@v3
-        with:
-          status: ${{ job.status }}
-          fields: repo,commit,job,took
-          text: |
-            :green-circle: *Test passed:*
-            - Tests run: *${{fromJson(env.test_totalTests)}}*
-            - Tests passed: *${{fromJson(env.test_totalPassed)}}*
-            - Tests failed: *${{fromJson(env.test_totalFailed)}}*
-            - Skipped tests: *${{fromJson(env.test_totalPending)}}*
+#       # Slack integration
+#       - name: Slack notification success
+#         if: success()
+#         env:
+#           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_AT_NOTIFICATIONS }}
+#           SLACK_USERNAME: cypress-e2e-tests
+#         uses: 8398a7/action-slack@v3
+#         with:
+#           status: ${{ job.status }}
+#           fields: repo,commit,job,took
+#           text: |
+#             :green-circle: *Test passed:*
+#             - Tests run: *${{fromJson(env.test_totalTests)}}*
+#             - Tests passed: *${{fromJson(env.test_totalPassed)}}*
+#             - Tests failed: *${{fromJson(env.test_totalFailed)}}*
+#             - Skipped tests: *${{fromJson(env.test_totalPending)}}*
