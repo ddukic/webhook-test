@@ -105,5 +105,8 @@ jobs:
       - name: Download results.json
         uses: actions/download-artifact@v3
 
+      - name: Print dir
+        run: ls -la
+
       - name: Print
         run: ./test.sh
