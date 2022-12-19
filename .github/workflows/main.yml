@@ -56,12 +56,12 @@ jobs:
           echo Add other actions to build,
           echo test, and deploy your project.
 
-      # Read results.json
-      - name: JSON to variables
-        uses: ddukic/json-to-variables@v1.1.0
-        with:
-          filename: 'results.json'
-          prefix: test
+      # # Read results.json
+      # - name: JSON to variables
+      #   uses: ddukic/json-to-variables@v1.1.0
+      #   with:
+      #     filename: 'results.json'
+      #     prefix: test
           
       - name: Upload screenshots
         uses: actions/upload-artifact@v3
@@ -99,6 +99,7 @@ jobs:
 
   print-values:
     runs-on: ubuntu-latest
+    needs: [build]
 
     steps:
       - name: Download results.json
