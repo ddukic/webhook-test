@@ -1,1 +1,1 @@
-echo $(cat results.json | jq '.totalTests')
+echo $(cat results/results.json | jq '.totalTests')
