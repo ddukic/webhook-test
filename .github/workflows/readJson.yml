@@ -16,6 +16,6 @@ jobs:
           content="${content//$'\n'/'%0A'}"
           content="${content//$'\r'/'%0D'}"
           # end of optional handling for multi line json
-          echo "name=resultsJson::$content" >> $GITHUB_OUTPUT
+          echo "name=resultsJson::$content" >> $GITHUB_ENV
       - run: |
-          echo "${{fromJson(steps.set_var.${{output.name}}.resultsJson).totalTests}}"
+          echo "${{fromJson(steps.set_var.${{env.name}}.resultsJson).totalTests}}"
