@@ -18,4 +18,4 @@ jobs:
           # end of optional handling for multi line json
           echo "::set-output name=resultsJson::$content"
       - run: |
-          echo "${{fromJson(steps.set_var.outputs.resultsJson).version}}"
+          echo "${{fromJson(steps.set_var.outputs.resultsJson).totalTests}}"
