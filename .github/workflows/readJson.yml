@@ -18,7 +18,4 @@ jobs:
           # end of optional handling for multi line json
           echo "resultsJson=$content" >> $GITHUB_ENV
       - run: |
-          # echo $GITHUB_OUTPUT
-          # echo "${{ steps.set_var.outputs }}"
-          # echo "${{ fromJson(steps.set_var.outputs) }}"
           echo "${{ fromJson(env.resultsJson).totalTests }}"
